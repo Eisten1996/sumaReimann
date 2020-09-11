@@ -17,8 +17,9 @@ double funcion(x);
 int main(int argc, char **argv[])
 {
     int dim;
-
+    FILE *f = fopen("analisis.csv", "w");
     printf("Resultados\n\t%s\t%s\t\t%s\t%s\t%s\t%s\t\t%s\t%s\n", "Nro", " N", "Total Secuencial", "Tiempo secuencial", "Total Paralela", "Tiempo paralela", "Aceleracion", "Eficiencia");
+    fprintf(f,"Resultados\n%s,%s,%s,%s,%s,%s,%s,%s\n", "Nro", " N", "Total Secuencial", "Tiempo secuencial", "Total Paralela", "Tiempo paralela", "Aceleracion", "Eficiencia");
 
     for (dim = 0; dim < N; dim++)
     {
@@ -67,6 +68,7 @@ int main(int argc, char **argv[])
         aceleracion[dim] = tiempoSecuencial[dim] / tiempoParalelo[dim];
         eficiencia[dim] = aceleracion[dim] / HILOS;
         printf("\t%i\t%i\t\t%f\t\t%f\t\t%f\t%f\t\t%f\t%f \n", dim, n[dim], totalSecuencial[dim] * dx, tiempoSecuencial[dim], totalParalelo[dim] * dx, tiempoParalelo[dim], aceleracion[dim], eficiencia[dim]);
+        fprintf(f,"%i,%i,%f,%f,%f,%f,%f,%f\n", dim, n[dim], totalSecuencial[dim] * dx, tiempoSecuencial[dim], totalParalelo[dim] * dx, tiempoParalelo[dim], aceleracion[dim], eficiencia[dim]);
     }
     return 0;
 }
